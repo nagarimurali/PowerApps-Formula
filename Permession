@@ -1,0 +1,18 @@
+1. Get User Principal ID
+
+Method:Get
+
+uri:-/_api/Web/SiteUsers?$filter=Email eq '@{outputs('Compose_3')}'
+
+Header:-
+
+{
+  "Content-Type": "application/json"
+}
+
+2.Send an HTTP request to SharePoint
+
+Methid:-Post
+
+uri:-_api/Lists/getByTitle('TestDocApprovals')/Items(@{triggerOutputs()?['body/ID']})/roleassignments/removeroleassignment(principalid=@{body('Get_User_Principal_ID')['d']['results']?[0]['id']},roledefid=1073741826)
+
